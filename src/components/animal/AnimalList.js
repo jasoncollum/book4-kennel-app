@@ -8,7 +8,12 @@ class AnimalList extends Component {
                 {
                     this.props.animals.map(animal =>
                         <div key={animal.id}>
-                            {animal.name}
+                            <h3>{animal.name}</h3>
+                            {
+                                this.props.owners.map(owner =>
+                                    (owner.petId === animal.id) ? <p>{owner.name}</p> : ''
+                                )
+                            }
                         </div>
                     )
                 }
