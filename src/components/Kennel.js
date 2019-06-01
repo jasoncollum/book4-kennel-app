@@ -25,10 +25,20 @@ class Kennel extends Component {
         { id: 4, name: "Banjo" }
     ]
 
+    ownersFromAPI = [
+        { id: 1, name: "Ryan Tanay", petId: 4 },
+        { id: 2, name: "Emma Beaton", petId: 1 },
+        { id: 3, name: "Dani Adkins", petId: 1 },
+        { id: 4, name: "Adam Oswalt", petId: 3 },
+        { id: 5, name: "Fletcher Bangs", petId: 2 },
+        { id: 6, name: "Angela Lee", petId: 3 }
+    ]
+
     state = {
         employees: this.employeesFromAPI,
         locations: this.locationsFromAPI,
-        animals: this.animalsFromAPI
+        animals: this.animalsFromAPI,
+        owners: this.ownersFromAPI
     }
 
     render() {
@@ -37,7 +47,7 @@ class Kennel extends Component {
                 <h3>Student Kennels</h3>
                 <LocationList locations={this.state.locations} />
                 <EmployeeList employees={this.state.employees} />
-                <AnimalList animals={this.state.animals} />
+                <AnimalList animals={this.state.animals} owners={this.state.owners} />
             </article>
         );
     }
