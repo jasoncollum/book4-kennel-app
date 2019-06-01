@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 export default class LocationList extends Component {
     render() {
         return (
-            <section>
-                <h2 className="locations">Locations</h2>
+            <section className="locations">
+                <h2>Locations</h2>
                 {
                     this.props.locations.map(location =>
                         <div key={location.id}>
