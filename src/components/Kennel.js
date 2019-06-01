@@ -17,6 +17,13 @@ class Kennel extends Component {
         { id: 2, name: "Nashville South", address: "500 Dogbreath Pike" }
     ]
 
+    animalsFromAPI = [
+        { id: 1, name: "Sydney" },
+        { id: 2, name: "Bertie" },
+        { id: 3, name: "Charlie" },
+        { id: 4, name: "Banjo" }
+    ]
+
     state = {
         employees: this.employeesFromAPI,
         locations: this.locationsFromAPI
