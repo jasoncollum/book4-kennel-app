@@ -5,41 +5,34 @@ import LocationList from './location/LocationList'
 import EmployeeList from './employee/EmployeeList'
 import OwnerList from './owner/OwnerList'
 
+const remoteURL = "http://localhost:5002";
+
 class ApplicationViews extends Component {
-    employeesFromAPI = [
-        { id: 1, name: "Jessica Younker" },
-        { id: 2, name: "Jordan Nelson" },
-        { id: 3, name: "Zoe LeBlanc" },
-        { id: 4, name: "Blaise Roberts" }
-    ]
-
-    locationsFromAPI = [
-        { id: 1, name: "Nashville North", address: "500 Puppy Way" },
-        { id: 2, name: "Nashville South", address: "500 Dogbreath Pike" }
-    ]
-
-    animalsFromAPI = [
-        { id: 1, name: "Sydney" },
-        { id: 2, name: "Bertie" },
-        { id: 3, name: "Charlie" },
-        { id: 4, name: "Banjo" }
-    ]
-
-    ownersFromAPI = [
-        { id: 1, name: "Ryan Tanay", phone: "615-599-7483", petId: 4 },
-        { id: 2, name: "Emma Beaton", phone: "601-924-1179", petId: 1 },
-        { id: 3, name: "Dani Adkins", phone: "828-888-9090", petId: 1 },
-        { id: 4, name: "Adam Oswalt", phone: "615-579-7281", petId: 3 },
-        { id: 5, name: "Fletcher Bangs", phone: "615-245-1234", petId: 2 },
-        { id: 6, name: "Angela Lee", phone: "918-123-4567", petId: 3 }
-    ]
-
     state = {
-        employees: this.employeesFromAPI,
-        locations: this.locationsFromAPI,
-        animals: this.animalsFromAPI,
-        owners: this.ownersFromAPI
+        employees: [],
+        locations: [],
+        animals: [],
+        owners: []
     }
+
+    componentDidMount() {
+        const newState = {}
+
+        fetch(`${remoteURL}/animals`)
+            .then(r => r.json())
+            .then(animals => newState.animals = animals)
+            .then(() => fetch(`${remoteURL}/employees`)
+                .then(r => r.json()))
+            .then(employees => newState.employees = employees)
+            .then(() => fetch(`${remoteURL}/locations`)
+                .then(r => r.json()))
+            .then(locations => newState.locations = locations)
+            .then(() => fetch(`${remoteURL}/owners`)
+                .then(r => r.json()))
+            .then(owners => newState.owners = owners)
+            .then(() => this.setState(newState))
+    }
+
 
     render() {
         return (
