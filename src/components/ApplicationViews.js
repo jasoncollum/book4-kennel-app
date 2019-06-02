@@ -1,5 +1,6 @@
 import { Route } from 'react-router-dom'
 import React, { Component } from 'react'
+import AnimalManager from '../modules/AnimalManager'
 import AnimalList from './animal/AnimalList'
 import LocationList from './location/LocationList'
 import EmployeeList from './employee/EmployeeList'
@@ -55,21 +56,13 @@ class ApplicationViews extends Component {
     }
 
     componentDidMount() {
-        const newState = {}
+        // const newState = {}
 
-        fetch(`${remoteURL}/animals`)
-            .then(r => r.json())
-            .then(animals => newState.animals = animals)
-            .then(() => fetch(`${remoteURL}/employees`)
-                .then(r => r.json()))
-            .then(employees => newState.employees = employees)
-            .then(() => fetch(`${remoteURL}/locations`)
-                .then(r => r.json()))
-            .then(locations => newState.locations = locations)
-            .then(() => fetch(`${remoteURL}/owners`)
-                .then(r => r.json()))
-            .then(owners => newState.owners = owners)
-            .then(() => this.setState(newState))
+        AnimalManager.getAll().then(allAnimals => {
+            this.setState({
+                animals: allAnimals
+            })
+        })
     }
 
 
