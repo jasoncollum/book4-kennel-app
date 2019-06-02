@@ -1,5 +1,6 @@
 import { Route } from 'react-router-dom'
 import React, { Component } from 'react'
+import { withRouter } from 'react-router'
 import AnimalManager from '../modules/AnimalManager'
 import AnimalList from './animal/AnimalList'
 import AnimalDetail from './animal/AnimalDetail'
@@ -21,12 +22,11 @@ class ApplicationViews extends Component {
         owners: []
     }
 
-    deleteAnimal = (id) => {
-        return AnimalManager.removeAndList(id)
-            .then(animals => this.setState({
-                animals: animals
-            }))
-    }
+    deleteAnimal = (id) => AnimalManager.removeAndList(id)
+        .then(animals => {
+            this.props.history.push("/animals")
+            this.setState({ animals: animals })
+        })
 
     deleteEmployee = id => {
         return fetch(`${remoteURL}/employees/${id}`, {
@@ -112,4 +112,4 @@ class ApplicationViews extends Component {
     }
 }
 
-export default ApplicationViews
+export default withRouter(ApplicationViews)
