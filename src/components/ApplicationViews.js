@@ -28,6 +28,32 @@ class ApplicationViews extends Component {
             )
     }
 
+    deleteEmployee = id => {
+        return fetch(`${remoteURL}/employees/${id}`, {
+            method: "DELETE"
+        })
+            .then(e => e.json())
+            .then(() => fetch(`${remoteURL}/employees`))
+            .then(employees => employees.json())
+            .then(employees => this.setState({
+                employees: employees
+            })
+            )
+    }
+
+    deleteOwner = id => {
+        return fetch(`${remoteURL}/owners/${id}`, {
+            method: "DELETE"
+        })
+            .then(e => e.json())
+            .then(() => fetch(`${remoteURL}/owners`))
+            .then(owners => owners.json())
+            .then(owners => this.setState({
+                owners: owners
+            })
+            )
+    }
+
     componentDidMount() {
         const newState = {}
 
@@ -57,10 +83,11 @@ class ApplicationViews extends Component {
                     return <AnimalList animals={this.state.animals} owners={this.state.owners} deleteAnimal={this.deleteAnimal} />
                 }} />
                 <Route exact path="/employees" render={(props) => {
-                    return <EmployeeList employees={this.state.employees} />
+                    return <EmployeeList employees={this.state.employees}
+                        deleteEmployee={this.deleteEmployee} />
                 }} />
                 <Route exact path="/owners" render={(props) => {
-                    return <OwnerList owners={this.state.owners} />
+                    return <OwnerList owners={this.state.owners} deleteOwner={this.deleteOwner} />
                 }} />
             </React.Fragment>
         )
