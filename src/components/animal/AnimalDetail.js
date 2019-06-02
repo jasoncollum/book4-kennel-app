@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import './Animal.css'
+import './AnimalDetail.css'
 import dog from './DogIcon.svg'
 
 export default class AnimalDetail extends Component {
     state = {
-        saveDisabled: false
+        deleteBtnDisabled: false
     }
 
     render() {
@@ -20,12 +20,12 @@ export default class AnimalDetail extends Component {
                         <button onClick={
                             () => {
                                 this.setState(
-                                    { saveDisabled: true },
-                                    () => this.props.dischargeAnimal(this.props.animal.id)
+                                    { deleteBtnDisabled: true },
+                                    () => this.props.deleteAnimal(this.props.animal.id)
                                 )
                             }
                         }
-                            disabled={this.state.saveDisabled}
+                            disabled={this.state.deleteBtnDisabled}
                             className="card-link">Delete</button>
                     </div>
                 </div>
