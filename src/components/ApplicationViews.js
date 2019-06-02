@@ -20,17 +20,11 @@ class ApplicationViews extends Component {
         owners: []
     }
 
-    deleteAnimal = id => {
-        return fetch(`${remoteURL}/animals/${id}`, {
-            method: "DELETE"
-        })
-            .then(e => e.json())
-            .then(() => fetch(`${remoteURL}/animals`))
-            .then(animals => animals.json())
+    deleteAnimal = (id) => {
+        return AnimalManager.removeAndList(id)
             .then(animals => this.setState({
                 animals: animals
-            })
-            )
+            }))
     }
 
     deleteEmployee = id => {
