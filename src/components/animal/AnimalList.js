@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import dog from './DogIcon.svg'
 import './Animal.css'
 
@@ -20,6 +21,7 @@ class AnimalList extends Component {
                                             (owner.petId === animal.id) ? <p key={owner.id}>{owner.name}</p> : ''
                                         )
                                     }
+                                    <Link className="nav-link" to={`/animals/${animal.id}`}>Details</Link>
                                     <button
                                         onClick={() => this.props.deleteAnimal(animal.id)}
                                         className="card-link">Delete</button>
