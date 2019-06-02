@@ -98,11 +98,12 @@ class ApplicationViews extends Component {
 
                     return <AnimalDetail animal={animal} deleteAnimal={this.deleteAnimal} />
                 }} />
-                }} />
+
                 <Route exact path="/employees" render={(props) => {
                     return <EmployeeList employees={this.state.employees}
                         deleteEmployee={this.deleteEmployee} />
                 }} />
+
                 <Route exact path="/owners" render={(props) => {
                     return <OwnerList owners={this.state.owners} deleteOwner={this.deleteOwner} />
                 }} />
