@@ -15,6 +15,19 @@ class ApplicationViews extends Component {
         owners: []
     }
 
+    deleteAnimal = id => {
+        return fetch(`${remoteURL}/animals/${id}`, {
+            method: "DELETE"
+        })
+            .then(e => e.json())
+            .then(() => fetch(`${remoteURL}/animals`))
+            .then(animals => animals.json())
+            .then(animals => this.setState({
+                animals: animals
+            })
+            )
+    }
+
     componentDidMount() {
         const newState = {}
 
@@ -41,7 +54,7 @@ class ApplicationViews extends Component {
                     return <LocationList locations={this.state.locations} />
                 }} />
                 <Route exact path="/animals" render={(props) => {
-                    return <AnimalList animals={this.state.animals} owners={this.state.owners} />
+                    return <AnimalList animals={this.state.animals} owners={this.state.owners} deleteAnimal={this.deleteAnimal} />
                 }} />
                 <Route exact path="/employees" render={(props) => {
                     return <EmployeeList employees={this.state.employees} />
