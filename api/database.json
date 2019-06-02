@@ -41,12 +41,6 @@
   ],
   "owners": [
     {
-      "id": 1,
-      "name": "Ryan Tanay",
-      "phone": "615-599-7483",
-      "petId": 4
-    },
-    {
       "id": 2,
       "name": "Emma Beaton",
       "phone": "601-924-1179",

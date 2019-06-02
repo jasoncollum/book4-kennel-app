@@ -41,6 +41,19 @@ class ApplicationViews extends Component {
             )
     }
 
+    deleteOwner = id => {
+        return fetch(`${remoteURL}/owners/${id}`, {
+            method: "DELETE"
+        })
+            .then(e => e.json())
+            .then(() => fetch(`${remoteURL}/owners`))
+            .then(owners => owners.json())
+            .then(owners => this.setState({
+                owners: owners
+            })
+            )
+    }
+
     componentDidMount() {
         const newState = {}
 
@@ -74,7 +87,7 @@ class ApplicationViews extends Component {
                         deleteEmployee={this.deleteEmployee} />
                 }} />
                 <Route exact path="/owners" render={(props) => {
-                    return <OwnerList owners={this.state.owners} />
+                    return <OwnerList owners={this.state.owners} deleteOwner={this.deleteOwner} />
                 }} />
             </React.Fragment>
         )
