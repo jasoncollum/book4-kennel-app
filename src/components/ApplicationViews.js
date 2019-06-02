@@ -2,11 +2,15 @@ import { Route } from 'react-router-dom'
 import React, { Component } from 'react'
 import AnimalManager from '../modules/AnimalManager'
 import AnimalList from './animal/AnimalList'
+import LocationManager from '../modules/LocationManager'
 import LocationList from './location/LocationList'
+import EmployeeManager from '../modules/EmployeeManager'
 import EmployeeList from './employee/EmployeeList'
+import OwnerManager from '../modules/OwnerManager'
 import OwnerList from './owner/OwnerList'
 
-const remoteURL = "http://localhost:5002";
+const remoteURL = "http://localhost:5002"
+
 
 class ApplicationViews extends Component {
     state = {
@@ -56,17 +60,29 @@ class ApplicationViews extends Component {
     }
 
     componentDidMount() {
-        // const newState = {}
+        const newState = {}
 
         AnimalManager.getAll().then(allAnimals => {
-            this.setState({
-                animals: allAnimals
-            })
+            newState.animals = allAnimals
         })
+            .then(() => EmployeeManager.getAll()
+                .then(allEmployees => {
+                    newState.employees = allEmployees
+                }))
+            .then(() => LocationManager.getAll()
+                .then(allLocations => {
+                    newState.locations = allLocations
+                }))
+            .then(() => OwnerManager.getAll()
+                .then(allOwners => {
+                    newState.owners = allOwners
+                }))
+            .then(() => this.setState(newState))
     }
 
 
     render() {
+        console.log(this.state)
         return (
             <React.Fragment>
                 <Route exact path="/" render={(props) => {
