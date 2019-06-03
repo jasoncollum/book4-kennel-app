@@ -4,6 +4,7 @@ import { withRouter } from 'react-router'
 import AnimalManager from '../modules/AnimalManager'
 import AnimalList from './animal/AnimalList'
 import AnimalDetail from './animal/AnimalDetail'
+import AnimalForm from './animal/AnimalForm'
 import LocationManager from '../modules/LocationManager'
 import LocationList from './location/LocationList'
 import LocationDetail from './location/LocationDetail'
@@ -22,6 +23,14 @@ class ApplicationViews extends Component {
         animals: [],
         owners: []
     }
+
+    addAnimal = animal =>
+        AnimalManager.post(animal)
+            .then(() => AnimalManager.getAll())
+            .then(animals =>
+                this.setState({
+                    animals: animals
+                }))
 
     deleteAnimal = (id) => AnimalManager.removeAndList(id)
         .then(animals => {
@@ -90,7 +99,15 @@ class ApplicationViews extends Component {
                 }} />
 
                 <Route exact path="/animals" render={(props) => {
-                    return <AnimalList animals={this.state.animals} owners={this.state.owners} deleteAnimal={this.deleteAnimal} />
+                    return <AnimalList {...props}
+                        animals={this.state.animals}
+                        owners={this.state.owners}
+                        deleteAnimal={this.deleteAnimal} />
+                }} />
+                <Route path="/animals/new" render={(props) => {
+                    return <AnimalForm {...props}
+                        addAnimal={this.addAnimal}
+                        employees={this.state.employees} />
                 }} />
                 <Route exact path="/animals/:animalId(\d+)" render={(props) => {
                     // Find the animal with the id of the route parameter

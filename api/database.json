@@ -17,6 +17,18 @@
     {
       "id": 2,
       "name": "Bertie"
+    },
+    {
+      "name": "Bonkers",
+      "breed": "Mix",
+      "employeeId": 1,
+      "id": 3
+    },
+    {
+      "name": "Snaps",
+      "breed": "Poodle",
+      "employeeId": 1,
+      "id": 4
     }
   ],
   "locations": [
