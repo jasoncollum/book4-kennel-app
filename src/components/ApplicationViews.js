@@ -11,6 +11,7 @@ import LocationDetail from './location/LocationDetail'
 import EmployeeManager from '../modules/EmployeeManager'
 import EmployeeList from './employee/EmployeeList'
 import EmployeeDetail from './employee/EmployeeDetail'
+import EmployeeForm from './employee/EmployeeForm'
 import OwnerManager from '../modules/OwnerManager'
 import OwnerList from './owner/OwnerList'
 import OwnerDetail from './owner/OwnerDetail'
@@ -37,6 +38,14 @@ class ApplicationViews extends Component {
             this.props.history.push("/animals")
             this.setState({ animals: animals })
         })
+
+    addEmployee = employee =>
+        EmployeeManager.post(employee)
+            .then(() => EmployeeManager.getAll())
+            .then(employees =>
+                this.setState({
+                    employees: employees
+                }))
 
     deleteEmployee = (id) => EmployeeManager.removeAndList(id)
         .then(employees => {
@@ -123,8 +132,13 @@ class ApplicationViews extends Component {
                 }} />
 
                 <Route exact path="/employees" render={(props) => {
-                    return <EmployeeList employees={this.state.employees}
+                    return <EmployeeList {...props}
+                        employees={this.state.employees}
                         deleteEmployee={this.deleteEmployee} />
+                }} />
+                <Route path="/employees/new" render={(props) => {
+                    return <EmployeeForm {...props}
+                        addEmployee={this.addEmployee} />
                 }} />
                 <Route exact path="/employees/:employeeId(\d+)" render={(props) => {
                     // Find the employee with the id of the route parameter
