@@ -6,12 +6,13 @@ import AnimalList from './animal/AnimalList'
 import AnimalDetail from './animal/AnimalDetail'
 import LocationManager from '../modules/LocationManager'
 import LocationList from './location/LocationList'
+import LocationDetail from './location/LocationDetail'
 import EmployeeManager from '../modules/EmployeeManager'
 import EmployeeList from './employee/EmployeeList'
+import EmployeeDetail from './employee/EmployeeDetail'
 import OwnerManager from '../modules/OwnerManager'
 import OwnerList from './owner/OwnerList'
-
-const remoteURL = "http://localhost:5002"
+import OwnerDetail from './owner/OwnerDetail'
 
 
 class ApplicationViews extends Component {
@@ -28,31 +29,23 @@ class ApplicationViews extends Component {
             this.setState({ animals: animals })
         })
 
-    deleteEmployee = id => {
-        return fetch(`${remoteURL}/employees/${id}`, {
-            method: "DELETE"
+    deleteEmployee = (id) => EmployeeManager.removeAndList(id)
+        .then(employees => {
+            this.props.history.push("/employees")
+            this.setState({ employees: employees })
         })
-            .then(e => e.json())
-            .then(() => fetch(`${remoteURL}/employees`))
-            .then(employees => employees.json())
-            .then(employees => this.setState({
-                employees: employees
-            })
-            )
-    }
 
-    deleteOwner = id => {
-        return fetch(`${remoteURL}/owners/${id}`, {
-            method: "DELETE"
+    deleteOwner = (id) => OwnerManager.removeAndList(id)
+        .then(owners => {
+            this.props.history.push("/owners")
+            this.setState({ owners: owners })
         })
-            .then(e => e.json())
-            .then(() => fetch(`${remoteURL}/owners`))
-            .then(owners => owners.json())
-            .then(owners => this.setState({
-                owners: owners
-            })
-            )
-    }
+
+    deleteLocation = (id) => LocationManager.removeAndList(id)
+        .then(locations => {
+            this.props.history.push("/")
+            this.setState({ locations: locations })
+        })
 
     componentDidMount() {
         const newState = {}
@@ -83,6 +76,19 @@ class ApplicationViews extends Component {
                 <Route exact path="/" render={(props) => {
                     return <LocationList locations={this.state.locations} />
                 }} />
+                <Route exact path="/:locationId(\d+)" render={(props) => {
+                    // Find the location with the id of the route parameter
+                    let location = this.state.locations.find(location =>
+                        location.id === parseInt(props.match.params.locationId))
+
+                    // If the location wasn't found, create a default one
+                    if (!location) {
+                        location = { id: 404, name: "404", address: "Location not found" }
+                    }
+
+                    return <LocationDetail location={location} deleteLocation={this.deleteLocation} />
+                }} />
+
                 <Route exact path="/animals" render={(props) => {
                     return <AnimalList animals={this.state.animals} owners={this.state.owners} deleteAnimal={this.deleteAnimal} />
                 }} />
@@ -103,9 +109,33 @@ class ApplicationViews extends Component {
                     return <EmployeeList employees={this.state.employees}
                         deleteEmployee={this.deleteEmployee} />
                 }} />
+                <Route exact path="/employees/:employeeId(\d+)" render={(props) => {
+                    // Find the employee with the id of the route parameter
+                    let employee = this.state.employees.find(employee =>
+                        employee.id === parseInt(props.match.params.employeeId))
+
+                    // If the employee wasn't found, create a default one
+                    if (!employee) {
+                        employee = { id: 404, name: "Employee not found" }
+                    }
+
+                    return <EmployeeDetail employee={employee} deleteEmployee={this.deleteEmployee} />
+                }} />
 
                 <Route exact path="/owners" render={(props) => {
                     return <OwnerList owners={this.state.owners} deleteOwner={this.deleteOwner} />
+                }} />
+                <Route exact path="/owners/:ownerId(\d+)" render={(props) => {
+                    // Find the owner with the id of the route parameter
+                    let owner = this.state.owners.find(owner =>
+                        owner.id === parseInt(props.match.params.ownerId))
+
+                    // If the owner wasn't found, create a default one
+                    if (!owner) {
+                        owner = { id: 404, name: "Owner not found" }
+                    }
+
+                    return <OwnerDetail owner={owner} deleteOwner={this.deleteOwner} />
                 }} />
             </React.Fragment>
         )

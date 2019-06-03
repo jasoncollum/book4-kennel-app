@@ -6,5 +6,10 @@ export default {
     },
     getAll() {
         return fetch(`${remoteURL}/locations`).then(e => e.json())
+    },
+    removeAndList(id) {
+        return fetch(`${remoteURL}/locations/${id}`, {
+            method: "DELETE"
+        }).then(() => this.getAll())
     }
 }
