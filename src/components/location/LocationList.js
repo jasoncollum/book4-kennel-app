@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 export default class LocationList extends Component {
     render() {
@@ -10,6 +11,7 @@ export default class LocationList extends Component {
                         <div key={location.id}>
                             <h3>{location.name}</h3>
                             <h5>{location.address}</h5>
+                            <Link className="nav-link" to={`/${location.id}`}>Details</Link>
                         </div>
                     )
                 }

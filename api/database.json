@@ -7,10 +7,6 @@
     {
       "id": 2,
       "name": "Jordan Nelson"
-    },
-    {
-      "id": 3,
-      "name": "Zoe LeBlanc"
     }
   ],
   "animals": [
@@ -27,12 +23,14 @@
     {
       "id": 1,
       "name": "Nashville North",
-      "address": "500 Puppy Way"
+      "address": "500 Puppy Way",
+      "hours": "9am to 5pm"
     },
     {
       "id": 2,
       "name": "Nashville South",
-      "address": "500 Dogbreath Pike"
+      "address": "500 Dogbreath Pike",
+      "hours": "9am to 6pm"
     }
   ],
   "owners": [
@@ -40,12 +38,6 @@
       "id": 2,
       "name": "Emma Beaton",
       "phone": "601-924-1179",
-      "petId": 1
-    },
-    {
-      "id": 3,
-      "name": "Dani Adkins",
-      "phone": "828-888-9090",
       "petId": 1
     },
     {
