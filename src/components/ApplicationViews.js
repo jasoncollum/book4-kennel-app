@@ -15,6 +15,7 @@ import EmployeeForm from './employee/EmployeeForm'
 import OwnerManager from '../modules/OwnerManager'
 import OwnerList from './owner/OwnerList'
 import OwnerDetail from './owner/OwnerDetail'
+import OwnerForm from './owner/OwnerForm'
 
 
 class ApplicationViews extends Component {
@@ -52,6 +53,14 @@ class ApplicationViews extends Component {
             this.props.history.push("/employees")
             this.setState({ employees: employees })
         })
+
+    addOwner = owner =>
+        OwnerManager.post(owner)
+            .then(() => OwnerManager.getAll())
+            .then(owners =>
+                this.setState({
+                    owners: owners
+                }))
 
     deleteOwner = (id) => OwnerManager.removeAndList(id)
         .then(owners => {
@@ -154,7 +163,14 @@ class ApplicationViews extends Component {
                 }} />
 
                 <Route exact path="/owners" render={(props) => {
-                    return <OwnerList owners={this.state.owners} deleteOwner={this.deleteOwner} />
+                    return <OwnerList {...props}
+                        owners={this.state.owners}
+                        deleteOwner={this.deleteOwner} />
+                }} />
+                <Route path="/owners/new" render={(props) => {
+                    return <OwnerForm {...props}
+                        addOwner={this.addOwner}
+                        animals={this.state.animals} />
                 }} />
                 <Route exact path="/owners/:ownerId(\d+)" render={(props) => {
                     // Find the owner with the id of the route parameter
