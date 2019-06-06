@@ -19,6 +19,7 @@ export default class Login extends Component {
     // Simplistic handler for login submit
     handleLogin = (e) => {
         e.preventDefault()
+        console.log(this.state)
 
         /*
             For now, just store the email and password that
