@@ -109,7 +109,7 @@ class ApplicationViews extends Component {
 
                 <Route exact path="/" render={(props) => {
                     if (this.isAuthenticated()) {
-                        return <LocationList locations={this.state.locations} />
+                        return <LocationList locations={this.state.locations} employees={this.state.employees} />
                     } else {
                         return <Redirect to="/login" />
                     }

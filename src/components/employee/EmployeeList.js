@@ -13,7 +13,7 @@ export default class EmployeeList extends Component {
                         <div key={employee.id} className="card card--employee">
                             <div className="card-body">
                                 <h5 className="card-title">
-                                    <img src={person} className="icon--employee" />
+                                    <img src={person} className="icon--employee" alt="" />
                                     {employee.name}
                                     <a href="www.google.com"
                                         onClick={() => this.props.deleteEmployee(employee.id)}
