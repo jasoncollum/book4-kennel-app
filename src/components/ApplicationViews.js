@@ -39,6 +39,16 @@ class ApplicationViews extends Component {
                     animals: animals
                 }))
 
+    updateAnimal = (editedAnimalObject) => {
+        return AnimalManager.put(editedAnimalObject)
+            .then(() => AnimalManager.getAll())
+            .then(animals => {
+                this.setState({
+                    animals: animals
+                })
+            })
+    }
+
     deleteAnimal = (id) => AnimalManager.removeAndList(id)
         .then(animals => {
             this.props.history.push("/animals")
