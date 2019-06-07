@@ -2,15 +2,18 @@
   "employees": [
     {
       "id": 1,
-      "name": "Jessica Younker"
+      "name": "Jessica Younker",
+      "locationId": 1
     },
     {
       "id": 2,
-      "name": "Jordan Nelson"
+      "name": "Jordan Nelson",
+      "locationId": 2
     },
     {
       "name": "Sal Manilla",
-      "id": 3
+      "id": 3,
+      "locationId": 1
     }
   ],
   "animals": [
