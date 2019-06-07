@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import AnimalManager from '../modules/AnimalManager'
@@ -16,9 +16,14 @@ import OwnerManager from '../modules/OwnerManager'
 import OwnerList from './owner/OwnerList'
 import OwnerDetail from './owner/OwnerDetail'
 import OwnerForm from './owner/OwnerForm'
+import Login from './authentication/Login'
 
 
 class ApplicationViews extends Component {
+
+    // Check if credentials are in local storage
+    isAuthenticated = () => sessionStorage.getItem("credentials") !== null
+
     state = {
         employees: [],
         locations: [],
@@ -100,6 +105,8 @@ class ApplicationViews extends Component {
         console.log(this.state)
         return (
             <React.Fragment>
+                <Route path="/login" component={Login} />
+
                 <Route exact path="/" render={(props) => {
                     return <LocationList locations={this.state.locations} />
                 }} />
@@ -141,9 +148,13 @@ class ApplicationViews extends Component {
                 }} />
 
                 <Route exact path="/employees" render={(props) => {
-                    return <EmployeeList {...props}
-                        employees={this.state.employees}
-                        deleteEmployee={this.deleteEmployee} />
+                    if (this.isAuthenticated()) {
+                        return <EmployeeList {...props}
+                            employees={this.state.employees}
+                            deleteEmployee={this.deleteEmployee} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route path="/employees/new" render={(props) => {
                     return <EmployeeForm {...props}
