@@ -166,6 +166,10 @@ class ApplicationViews extends Component {
                         return <Redirect to="/login" />
                     }
                 }} />
+                <Route path="/animals/:animalId(\d+)/edit" render={props => {
+                    return <AnimalEditForm {...props} employees={this.state.employees} updateAnimal={this.updateAnimal} />
+                }}
+                />
 
                 <Route exact path="/employees" render={(props) => {
                     if (this.isAuthenticated()) {
