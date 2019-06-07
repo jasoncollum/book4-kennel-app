@@ -108,43 +108,63 @@ class ApplicationViews extends Component {
                 <Route path="/login" component={Login} />
 
                 <Route exact path="/" render={(props) => {
-                    return <LocationList locations={this.state.locations} />
+                    if (this.isAuthenticated()) {
+                        return <LocationList locations={this.state.locations} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route exact path="/:locationId(\d+)" render={(props) => {
-                    // Find the location with the id of the route parameter
-                    let location = this.state.locations.find(location =>
-                        location.id === parseInt(props.match.params.locationId))
+                    if (this.isAuthenticated()) {
+                        // Find the location with the id of the route parameter
+                        let location = this.state.locations.find(location =>
+                            location.id === parseInt(props.match.params.locationId))
 
-                    // If the location wasn't found, create a default one
-                    if (!location) {
-                        location = { id: 404, name: "404", address: "Location not found" }
+                        // If the location wasn't found, create a default one
+                        if (!location) {
+                            location = { id: 404, name: "404", address: "Location not found" }
+                        }
+
+                        return <LocationDetail location={location} deleteLocation={this.deleteLocation} />
+                    } else {
+                        return <Redirect to="/login" />
                     }
-
-                    return <LocationDetail location={location} deleteLocation={this.deleteLocation} />
                 }} />
 
                 <Route exact path="/animals" render={(props) => {
-                    return <AnimalList {...props}
-                        animals={this.state.animals}
-                        owners={this.state.owners}
-                        deleteAnimal={this.deleteAnimal} />
+                    if (this.isAuthenticated()) {
+                        return <AnimalList {...props}
+                            animals={this.state.animals}
+                            owners={this.state.owners}
+                            deleteAnimal={this.deleteAnimal} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route path="/animals/new" render={(props) => {
-                    return <AnimalForm {...props}
-                        addAnimal={this.addAnimal}
-                        employees={this.state.employees} />
+                    if (this.isAuthenticated()) {
+                        return <AnimalForm {...props}
+                            addAnimal={this.addAnimal}
+                            employees={this.state.employees} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route exact path="/animals/:animalId(\d+)" render={(props) => {
-                    // Find the animal with the id of the route parameter
-                    let animal = this.state.animals.find(animal =>
-                        animal.id === parseInt(props.match.params.animalId))
+                    if (this.isAuthenticated()) {
+                        // Find the animal with the id of the route parameter
+                        let animal = this.state.animals.find(animal =>
+                            animal.id === parseInt(props.match.params.animalId))
 
-                    // If the animal wasn't found, create a default one
-                    if (!animal) {
-                        animal = { id: 404, name: "404", breed: "Dog not found" }
+                        // If the animal wasn't found, create a default one
+                        if (!animal) {
+                            animal = { id: 404, name: "404", breed: "Dog not found" }
+                        }
+
+                        return <AnimalDetail animal={animal} deleteAnimal={this.deleteAnimal} />
+                    } else {
+                        return <Redirect to="/login" />
                     }
-
-                    return <AnimalDetail animal={animal} deleteAnimal={this.deleteAnimal} />
                 }} />
 
                 <Route exact path="/employees" render={(props) => {
@@ -157,43 +177,63 @@ class ApplicationViews extends Component {
                     }
                 }} />
                 <Route path="/employees/new" render={(props) => {
-                    return <EmployeeForm {...props}
-                        addEmployee={this.addEmployee} />
+                    if (this.isAuthenticated()) {
+                        return <EmployeeForm {...props}
+                            addEmployee={this.addEmployee} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route exact path="/employees/:employeeId(\d+)" render={(props) => {
-                    // Find the employee with the id of the route parameter
-                    let employee = this.state.employees.find(employee =>
-                        employee.id === parseInt(props.match.params.employeeId))
+                    if (this.isAuthenticated()) {
+                        // Find the employee with the id of the route parameter
+                        let employee = this.state.employees.find(employee =>
+                            employee.id === parseInt(props.match.params.employeeId))
 
-                    // If the employee wasn't found, create a default one
-                    if (!employee) {
-                        employee = { id: 404, name: "Employee not found" }
+                        // If the employee wasn't found, create a default one
+                        if (!employee) {
+                            employee = { id: 404, name: "Employee not found" }
+                        }
+
+                        return <EmployeeDetail employee={employee} deleteEmployee={this.deleteEmployee} />
+                    } else {
+                        return <Redirect to="/login" />
                     }
-
-                    return <EmployeeDetail employee={employee} deleteEmployee={this.deleteEmployee} />
                 }} />
 
                 <Route exact path="/owners" render={(props) => {
-                    return <OwnerList {...props}
-                        owners={this.state.owners}
-                        deleteOwner={this.deleteOwner} />
+                    if (this.isAuthenticated()) {
+                        return <OwnerList {...props}
+                            owners={this.state.owners}
+                            deleteOwner={this.deleteOwner} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route path="/owners/new" render={(props) => {
-                    return <OwnerForm {...props}
-                        addOwner={this.addOwner}
-                        animals={this.state.animals} />
+                    if (this.isAuthenticated()) {
+                        return <OwnerForm {...props}
+                            addOwner={this.addOwner}
+                            animals={this.state.animals} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route exact path="/owners/:ownerId(\d+)" render={(props) => {
-                    // Find the owner with the id of the route parameter
-                    let owner = this.state.owners.find(owner =>
-                        owner.id === parseInt(props.match.params.ownerId))
+                    if (this.isAuthenticated()) {
+                        // Find the owner with the id of the route parameter
+                        let owner = this.state.owners.find(owner =>
+                            owner.id === parseInt(props.match.params.ownerId))
 
-                    // If the owner wasn't found, create a default one
-                    if (!owner) {
-                        owner = { id: 404, name: "Owner not found" }
+                        // If the owner wasn't found, create a default one
+                        if (!owner) {
+                            owner = { id: 404, name: "Owner not found" }
+                        }
+
+                        return <OwnerDetail owner={owner} deleteOwner={this.deleteOwner} />
+                    } else {
+                        return <Redirect to="/login" />
                     }
-
-                    return <OwnerDetail owner={owner} deleteOwner={this.deleteOwner} />
                 }} />
             </React.Fragment>
         )
