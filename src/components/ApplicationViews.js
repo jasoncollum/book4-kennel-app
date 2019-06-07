@@ -171,7 +171,8 @@ class ApplicationViews extends Component {
                     if (this.isAuthenticated()) {
                         return <EmployeeList {...props}
                             employees={this.state.employees}
-                            deleteEmployee={this.deleteEmployee} />
+                            deleteEmployee={this.deleteEmployee}
+                            animals={this.state.animals} />
                     } else {
                         return <Redirect to="/login" />
                     }

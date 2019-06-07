@@ -16,11 +16,13 @@
   "animals": [
     {
       "id": 1,
-      "name": "Sydney"
+      "name": "Sydney",
+      "employeeId": 2
     },
     {
       "id": 2,
-      "name": "Bertie"
+      "name": "Bertie",
+      "employeeId": 3
     },
     {
       "name": "Bonkers",
