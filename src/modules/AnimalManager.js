@@ -16,6 +16,15 @@ export default {
             body: JSON.stringify(newAnimal)
         }).then(data => data.json())
     },
+    put(editedAnimal) {
+        return fetch(`${remoteURL}/animals/${editedAnimal.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(editedAnimal)
+        }).then(data => data.json());
+    },
     removeAndList(id) {
         return fetch(`${remoteURL}/animals/${id}`, {
             method: "DELETE"
