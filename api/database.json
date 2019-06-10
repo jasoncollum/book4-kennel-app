@@ -20,6 +20,7 @@
     {
       "id": 1,
       "name": "Sydney",
+      "breed": "Black Lab",
       "employeeId": 2
     },
     {
